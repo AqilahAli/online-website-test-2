@@ -1,0 +1,319 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* USER PROFILE CSS */
+        body {
+            font-family: 'Roboto Flex', sans-serif;
+            background-color: #FFFFFF;
+            
+        }
+        .header {
+            background-color: #483FAB;
+            color: white;
+            text-align: center;
+            padding: 50px;
+            font-weight: bold;
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        .profile-card {
+            background-color: #2F4C83;
+            border-radius: 10px;
+            padding: 30px;
+            color: #FFFFFF;
+            width: 620px;
+            height: 350px;
+        }
+        .profile-card .avatar {
+            width: 150px;
+            border-radius: 100%;
+        }
+        .profile-card h4 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+        .profile-info {
+            font-size: 16px;
+            color: #FFFFFF;
+        }
+        .stat {
+            color: #EFEFEF;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .achievement-card {
+            background-color: #FFFFFF;
+            border: 1px solid #D9D9D9;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            height: 270px;
+        }
+        .achievement-card img {
+            width: 80px;
+            height: 80px;
+        }
+        .achievement-card h5 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .achievement-card p {
+            font-size: 14px;
+            color: #757575;
+        }
+        .form-container {
+            background-color: #9CB3DF;
+            padding: 20px;
+            border-radius: 10px;
+            width: 415px;
+        }
+        .form-container label {
+            font-size: 16px;
+            font-weight: 400;
+            color: #1E1E1E;
+        }
+        .form-container input {
+            margin-bottom: 15px;
+        }
+        .form-container container .btn-primary {
+            background-color: #2F4C83;
+            border-color: #2F4C83;
+            color: #FFFFFF;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 5px;
+            width: 100%;
+
+        }
+        .form-container .btn-primary:hover{
+            background-color: #1E3A72;
+            border-color: #1E3A72;
+        }
+        .btn-logout {
+            left: 400px;
+            top: 400px;
+            background-color: #a71616;
+            border-color: #f9f8f8;
+            color: #ffffff;
+            border-radius: 8px;
+        }
+        .footer {
+            background-color: #D9D9D9;
+            padding: 30px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+        .footer img {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) saturate(100%) invert(71%) sepia(11%) saturate(749%) hue-rotate(180deg) brightness(94%) contrast(90%);
+        }
+        /* Pagination Gap CSS */
+        .pagination-gap {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 16px;
+            position: absolute;
+            width: 55px;
+            height: 40px;
+            left: 600px;
+            top: 230px;
+            border-radius: 8px;
+            background-color: #D9D9D9;
+        }
+        .pagination-gap span {
+            font-size: 30px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        /* Ellipse 2 CSS */
+        .ellipse-2 {
+            position: absolute;
+            width: 32px;
+            height: 30px;
+            left: 200px;
+            top: 585px;
+            background: #E81F1F;
+            border-radius: 50%;
+        }
+
+        /* Log Out Confirmation Dialog */
+        .logout-section {
+            position: fixed;
+            background-color: #FFF;
+            border: 1px solid #D9D9D9;
+            box-shadow: 0px 16px 32px -4px rgba(12, 12, 13, 0.1), 0px 4px 4px -4px rgba(12, 12, 13, 0.05);
+            border-radius: 8px;
+            width: 350px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            z-index: 100;
+            display: none;
+        }
+        .logout-section h3 {
+            font-size: 24px;
+            margin: 0 0 10px;
+        }
+        .logout-section p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .logout-section button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn-cancel {
+            background-color: #E3E3E3;
+            border: 1px solid #767676;
+        }
+        .btn-confirm {
+            background-color: #2C2C2C;
+            border: 1px solid #2C2C2C;
+            color: #FFFFFF;
+        }
+
+        /* Pagination Gap CSS */
+        .pagination-gap {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 16px;
+            position: absolute;
+            width: 55px;
+            height: 40px;
+            left: 600px;
+            top: 230px;
+            border-radius: 8px;
+            background-color: #D9D9D9;
+        }
+        .pagination-gap span {
+            font-size: 30px;
+            font-weight: 700;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        USER PROFILE
+    </div>
+
+    <!-- Profile Section -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="profile-card p-4">
+                    <div class="d-flex">
+                        <img src="{% static 'images/UserProfile image.jpg' %}" alt="Profile Picture" class="avatar">
+                        <div class="ms-3">
+                            <h2>{{ user_profile.user.username }}</h2>
+                            <p>Birthday: {{ user_profile.birth_date|default:"m/d/Y" }}</p>
+                            <p>Followers: {{ user_profile.followers_count|default:"0" }}</p>
+                            <p>Following: {{ user_profile.following_count|default:"0" }}</p>
+                        </div>
+                    </div>
+                    <hr class="text-light my-4">
+                    <div class="d-flex justify-content-between">
+                        <p class="stat">Completed Lessons: {{ user_profile.finishes_count|default:"0" }}</p>
+                        <form method="post" action="{% url 'reset_finishes_count' %}">
+                            {% csrf_token %}
+                            <button type="submit" style="background-color: darkred; color: white; border-radius: 5px; width: 100px">Reset</button>
+                    </div>
+                </div>
+
+            <!-- Form Section -->
+        </div>
+         <div class="col-md-4">
+            <div class="form-container p-4">
+            <form method="post">
+                {% csrf_token %}
+                <label for="username">Update Username</label>
+                <input type="text" id="username" name="username" class="form-control mb-3"
+                 placeholder="Enter new username" value="{{ request.user.username }}">
+            
+                <label for="email">Update Email</label>
+                <input type="email" id="email" name="email" class="form-control mb-3"
+                 placeholder="Enter new email" value="{{ request.user.email}}">
+
+                <label for="birthday">Update Birthday</label>
+                <input type="date" id="birthday" name="birthday" class="form-control mb-3" 
+                    placeholder="Enter birthday" value="{{ user_profile.birth_date|default:'' }}">
+
+               <label for="password_confirm">Confirm Password</label>
+               <input type="password" id="password_confirm" name="password_confirm" class="form-control mb-3" 
+                    placeholder="Confirm new password">
+        
+                <label for="password">Update Password</label>
+                <input type="password" id="password" name="password" class="form-control mb-3" placeholder="Enter new password">
+            
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+        </div>
+        
+
+                <!-- Logout Section -->
+                <div class="mt-4 text-center">
+                    <button class="btn btn-logout w-100" onclick="showLogoutConfirm()">Log Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <a href="{% url 'home' %}">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/home.png" alt="Home">
+        </a>
+        <a href="{% url 'profile' %}">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/user.png" alt="User Profile">
+        </a>
+</footer>
+
+    <!-- Logout Confirmation Section -->
+    <div class="logout-section" id="logoutConfirm">
+        <h3>Log Out</h3>
+        <p>Are you sure you want to log out?</p>
+        <button class="btn btn-cancel" onclick="hideLogoutConfirm()">Cancel</button>
+        <button class="btn btn-confirm" onclick="confirmLogout()">Confirm</button>
+    </div>
+
+    <script>
+        function showLogoutConfirm() {
+            document.getElementById('logoutConfirm').style.display = 'block';
+        }
+
+        function hideLogoutConfirm() {
+            document.getElementById('logoutConfirm').style.display = 'none';
+        }
+
+        function confirmLogout() {
+            // Handle the logout functionality, e.g., redirect to logout URL
+            window.location.href = "/logout/";
+        }
+    </script>
+
+</body>
+</html>

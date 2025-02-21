@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ language_title }} Beginner Lesson</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Page Background */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #0d0d3a;
+            color: white;
+        }
+
+        /* Header */
+        .header {
+            background-color: #483FAB;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 50px 0; /* Reduced padding */
+            position: relative; /* Fixed positioning */
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000; /* Ensure it's on top of other content */
+        }
+        .header h1 {
+            font-size: 40px; /* Reduced font size for better fitting */
+            font-weight: bold;
+        }
+
+        /* Back button in Header */
+        .header .back-btn {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Main Content Section */
+        .main-content {
+            flex-grow: 1; /* Allow the content to fill the available space */
+            overflow-y: auto; /* Enable scrolling for the main content */
+            padding: 20px 1rem 50px; /* Padding to avoid overlap with header and footer */
+            margin-bottom: 60px; /* Margin to provide space for the footer */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Card Layout for Questions */
+        .question-container {
+            background-color: #211874;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            width: 120%; /* Adjust width */
+            margin-bottom: 10px; /* Reduce spacing between questions */
+            text-align: left;
+            color: #FFFFFF;
+            font-size: 20px;
+        }
+
+        /* Button Style */
+        .continue-btn {
+            background-color: #3764e5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block; /* Make the button block-level */
+            width: 120%; /* Full width of the card */
+            margin: 20px auto 0; /* Center the button horizontally and add margin to the top */
+            text-align: center;
+        }
+
+        /* Bottom Navigation */
+        .footer {
+            background-color: #d9d9d9;
+            padding: 30px;
+            display: flex;
+            justify-content: space-around;
+            position: fixed; /* Fixed positioning */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000; /* Ensure it's on top of other content */
+        }
+        .footer img {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) saturate(100%) invert(71%) sepia(11%) saturate(749%) hue-rotate(180deg) brightness(94%) contrast(90%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <a href="{% url 'home' %}" class="back-btn">&#9664;</a>
+        <h1>{{ language_title }} Beginner Lesson</h1>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <!-- Quiz Content Section -->
+        <div class="quiz-content">
+            <form method="post" action="{% url 'result' language=language_code %}">
+                {% csrf_token %}
+                <input type="hidden" name="language" value="{{ language_code }}"> <!-- Pass the current language -->
+                
+                <!-- Render each question with options -->
+                {% for question in questions %}
+                    <div class="question-container card">
+                        <p><strong>{{ question.question_text }}</strong></p>
+                        <label><input type="radio" name="answer_{{ forloop.counter0 }}" value="A" required> {{ question.option_a }}</label><br>
+                        <label><input type="radio" name="answer_{{ forloop.counter0 }}" value="B" required> {{ question.option_b }}</label><br>
+                        {% if question.option_c %}
+                            <label><input type="radio" name="answer_{{ forloop.counter0 }}" value="C"> {{ question.option_c }}</label><br>
+                        {% endif %}
+                        {% if question.option_d %}
+                            <label><input type="radio" name="answer_{{ forloop.counter0 }}" value="D"> {{ question.option_d }}</label><br>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                
+                <button type="submit" class="continue-btn">CONTINUE</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="footer">
+        <a href="{% url 'home' %}">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/home.png" alt="Home">
+        </a>
+        <a href="{% url 'profile' %}">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/user.png" alt="User Profile">
+        </a>
+    </div>
+</body>
+</html>

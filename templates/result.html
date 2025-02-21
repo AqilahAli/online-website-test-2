@@ -1,0 +1,81 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ language_title }} Quiz Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d3a;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+        }
+        .result-card {
+            background-color: #242647;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1, h2 {
+            color: #4a40dd;
+            text-align: center;
+        }
+        .question-block {
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: block;
+            margin: 15px 0;
+            background-color: #3a3f85;
+            color: #fafafa;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .correct {
+            color: rgb(0, 196, 33);
+        }
+        .incorrect {
+            color: red;
+        }
+        hr {
+            border-top: 1px solid #4a3fad;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="result-card">
+        <h1>{{ language_title }} Beginner Lesson Results</h1>
+        <p>You scored: {{ score }} out of {{ total_questions }}</p>
+        
+        {% for question in questions %}
+            <div class="question-block">
+                <p><strong>{{ question.question_text }}</strong></p>
+                <p>Your answer: {{ user_answers|get_item:question.id }}</p>
+                <p>Correct answer: {{ question.correct_answer }}</p>
+                {% if user_answers|get_item:question.id == question.correct_answer %}
+                    <p class="correct">Correct!</p>
+                {% else %}
+                    <p class="incorrect">Incorrect.</p>
+                {% endif %}
+            </div>
+            <hr>
+        {% endfor %}
+        
+        
+        <a href="{% url 'home' %}" class="btn">Return to Home</a>
+    </div>
+
+</body>
+</html>

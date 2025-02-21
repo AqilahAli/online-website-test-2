@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Beginner</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Content Section -->
+        <div class="quiz-content">
+            <h2>KOREAN BEGINNER</h2>
+            <form method="POST" action="{% url 'result_view' %}">
+                {% csrf_token %}
+
+                <!-- Hidden field to specify quiz language -->
+                <input type="hidden" name="language" value="KR">
+
+                {% for question in questions %}
+                    <div>
+                        <label>{{ question.question_text }}</label><br>
+                        <input type="radio" name="answer_{{ forloop.counter0 }}" value="A"> A<br>
+                        <input type="radio" name="answer_{{ forloop.counter0 }}" value="B"> B<br>
+                        <input type="radio" name="answer_{{ forloop.counter0 }}" value="C"> C<br>
+                        <input type="radio" name="answer_{{ forloop.counter0 }}" value="D"> D<br>
+                    </div>
+                {% endfor %}
+                
+                <!-- Submit button -->
+                <button type="submit" class="continue-btn">CONTINUE</button>
+            </form>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="{% url 'home' %}" class="nav-item">&#8962; <!-- Home Icon --></a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Language Ace</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container-fluid {
+            height: 100%;
+            display: flex;
+        }
+        .left-side {
+            background-color: #fff;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .right-side {
+            background-color: #2F4C83;
+            width: 50%;
+            color: white;
+            display: flex;
+            font-size: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .register-container {
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+        }
+        .register-container h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: white;
+        }
+        .form-control {
+            border-radius: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .btn-register {
+            background-color: #242647;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 30px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: bold;
+        }
+        .btn-register:hover {
+            background-color: #242647;
+        }
+        .logo img {
+            max-width: 300px;
+        }
+        .arrow-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .arrow-back:hover {
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <!-- Left Side (Logo) -->
+    <div class="left-side">
+        <div class="logo text-center">
+            <img src="{% static 'images/Language Ace Logo.png' %}" alt="Language Ace Logo">
+        </div>
+    </div>
+
+    <!-- Right Side (Register Form) -->
+    <div class="right-side">
+        <div class="register-container">
+            <h1>SIGN UP</h1>
+
+            <!-- Registration form starts -->
+            <form method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
+                <input type="password" class="form-control" id="password" name="password1" placeholder="Password" required>
+                <input type="password" class="form-control" id="confirm-password" name="password2" placeholder="Confirm Password" required>
+                <button type="submit" class="btn btn-register">SIGN UP</button>
+            </form>
+            <!-- Registration form ends -->
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
